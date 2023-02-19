@@ -6,11 +6,11 @@
   <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-  <div class="header">
+  <div class="header2">
   	<h2>Register</h2>
   </div>
 	
-  <form method="post" action="register.php">
+  <form class="skaicius2" method="post" action="register.php">
   	<?php include('errors.php'); ?>
   	<div class="input-group">
   	  <label>First Name</label>

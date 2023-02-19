@@ -4,10 +4,23 @@
   }
   body {
     font-size: 120%;
-    background: #F8F8FF;
+    background-image: url(https://wallpaperaccess.com/full/1311077.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
   }
   
   .header {
+    width: 50%;
+    margin: 50px auto 0px;
+    color: white;
+    background: #5F9EA0;
+    text-align: center;
+    border: 1px solid #B0C4DE;
+    border-bottom: none;
+    border-radius: 10px 10px 0px 0px;
+    padding: 20px;
+  }
+  .header2 {
     width: 30%;
     margin: 50px auto 0px;
     color: white;
@@ -19,6 +32,14 @@
     padding: 20px;
   }
   form, .content {
+    width: 50%;
+    margin: 0px auto;
+    padding: 20px;
+    border: 1px solid #B0C4DE;
+    background: white;
+    border-radius: 0px 0px 10px 10px;
+  }
+  .skaicius2 {
     width: 30%;
     margin: 0px auto;
     padding: 20px;
@@ -33,6 +54,7 @@
     display: block;
     text-align: left;
     margin: 3px;
+    background:transparent;
   }
   .input-group input {
     height: 30px;
@@ -41,14 +63,6 @@
     font-size: 16px;
     border-radius: 5px;
     border: 1px solid gray;
-  }
-  .btn {
-    padding: 10px;
-    font-size: 15px;
-    color: white;
-    background: #5F9EA0;
-    border: none;
-    border-radius: 5px;
   }
   .error {
     width: 92%; 
@@ -66,3 +80,117 @@
     border: 1px solid #3c763d;
     margin-bottom: 20px;
   }
+
+
+
+
+
+  table {
+    font-family: Arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  
+  th, td {
+    text-align: left;
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  th {
+    background-color: #5F9EA0;
+    color: white;
+  }
+  
+  tr:hover {
+    background-color: #f5f5f5;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  @import url('https://fonts.googleapis.com/css?family=Noto+Sans:400,400i,700,700i&subset=greek-ext');
+
+.text-center{
+	color:#fff;	
+	text-transform:uppercase;
+    font-size: 23px;
+    margin: -50px 0 80px 0;
+    display: block;
+    text-align: center;
+}
+.box{
+	position:absolute;
+	left:50%;
+	top:50%;
+	transform: translate(-50%,-50%);
+    background-color: rgba(0, 0, 0, 0.89);
+	border-radius:3px;
+	padding:70px 100px;
+}
+.input-container{
+	position:relative;
+	margin-bottom:25px;
+}
+.input-container label{
+	position:absolute;
+	top:0px;
+	left:0px;
+	font-size:16px;
+	color:#5F9EA0;	
+	transition: all 0.5s ease-in-out;
+}
+.input-container input{ 
+  border:0;
+  border-bottom:1px solid #555;  
+  background:transparent;
+  width:100%;
+  padding:8px 0 5px 0;
+  font-size:16px;
+  color:#5F9EA0;
+}
+.input-container input:focus{ 
+ border:none;	
+ outline:none;
+ border-bottom:1px solid #e74c3c;	
+}
+.btn{
+	color: #5F9EA0;
+	background-color:#5F9EA0;
+	outline: none;
+    border: 0;
+    color: white;
+	padding:10px 20px;
+	text-transform:uppercase;
+	margin-top:50px;
+	border-radius:2px;
+	cursor:pointer;
+	position:relative;
+}
+.input-container input:focus ~ label,
+.input-container input:valid ~ label{
+	top:-12px;
+	font-size:12px;
+	
+}

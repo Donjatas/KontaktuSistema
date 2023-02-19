@@ -6,11 +6,11 @@
   <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-  <div class="header">
+  <div class="header2">
   	<h2>Login</h2>
   </div>
 	 
-  <form method="post" action="login.php">
+  <form class="skaicius2" method="post" action="login.php">
   	<?php include('errors.php'); ?>
   	<div class="input-group">
   		<label>Email</label>
