@@ -6,36 +6,79 @@
   	header('location: login.php');
   }
 
-    // Connect to the database
-	include 'dbconnect.php';
+  // Connect to the database
+  include 'dbconnect.php';
   
-	$email = $_SESSION['email'];
-	// Query to retrieve information from the database
-	$query = "SELECT * FROM user WHERE email='$email'";
-	$result = mysqli_query($db, $query);
-	$user = mysqli_fetch_assoc($result);
+  $email = $_SESSION['email'];
+  
+  // Query to retrieve information from the database
+  $query = "SELECT * FROM user WHERE email='$email'";
+  $result = mysqli_query($db, $query);
+  $user = mysqli_fetch_assoc($result);
 	
-	// Assign the retrieved information to session variables
-	$_SESSION['first_Name'] = $user['First_Name'];
-	$_SESSION['last_Name'] = $user['Last_Name'];
+  // Assign the retrieved information to session variables
+  $_SESSION['first_name'] = $user['first_name'];
+  $_SESSION['last_name'] = $user['last_name'];
 
-	$sql2 = "SELECT User_ID FROM user WHERE Email='".$_SESSION['email']."'";
-	$result = mysqli_query($db, $sql2);
-	$row = mysqli_fetch_assoc($result);
-	$UserID = $row['User_ID'];
+  $sql2 = "SELECT UserID FROM user WHERE Email='".$_SESSION['email']."'";
+  $result = mysqli_query($db, $sql2);
+  $row = mysqli_fetch_assoc($result);
+  $UserID = $row['UserID'];
 
-	$_SESSION['User_ID'] = $UserID;
+  $_SESSION['UserID'] = $UserID;
 
-	$sql = "SELECT * FROM contacts WHERE user_id='".$_SESSION['User_ID']."'";
-	$result2 = mysqli_query($db, $sql);
-
+  // Query to retrieve contacts from the database
+  $sql = "SELECT * FROM contacts WHERE userid='".$_SESSION['UserID']."'";
+  $result2 = mysqli_query($db, $sql);
 
   if (isset($_GET['logout'])) {
   	session_destroy();
   	unset($_SESSION['email']);
   	header("location: login.php");
   }
+
+  // Add contact to database
+  if (isset($_POST['add_contact'])) {
+    $name = $_POST['name'];
+    $email = $_POST['email'];
+    $phone = $_POST['phone'];
+    $address = $_POST['address'];
+    $userid = $_SESSION['UserID'];
+    
+    $query = "INSERT INTO contacts (name, email, phone, address, userid) 
+              VALUES ('$name', '$email', '$phone', '$address', '$userid')";
+    mysqli_query($db, $query);
+    
+    $_SESSION['success'] = "Kontaktas pridėtas sėkmingai";
+    header('location: index.php');
+  }
+
+  // Update contact in database
+  if (isset($_POST['update_contact'])) {
+    $id = $_POST['ContactsID'];
+    $name = $_POST['name'];
+    $email = $_POST['email'];
+    $phone = $_POST['phone'];
+    $address = $_POST['address'];
+    
+    $query = "UPDATE contacts SET name='$name', email='$email', phone='$phone', address='$address' WHERE ContactsID='$id'";
+    mysqli_query($db, $query);
+    
+    $_SESSION['success'] = "Kontaktas atnaujintas sėkmingai";
+    header('location: index.php');
+  }
+
+  // Delete contact from database
+  if (isset($_GET['delete_contact'])) {
+    $id = $_GET['delete_contact'];
+    $query = "DELETE FROM contacts WHERE ContactsID=$id";
+    mysqli_query($db, $query);
+    $_SESSION['success'] = "Kontaktas ištrintas sėkmingai";
+    header('location: index.php');
+  }
 ?>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -62,8 +105,8 @@
 
     <!-- logged in user information -->
     <?php  if (isset($_SESSION['email'])) : ?>
-    	<p>Sveiki, <strong><?php echo $_SESSION['first_Name']; echo " "; echo $_SESSION['last_Name']; ?></strong>.</p>
-    	<p> <a href="index.php?logout='1'" style="color: red;">logout</a> </p>
+    	<p>Sveiki, <strong><?php echo $_SESSION['first_name']; echo " "; echo $_SESSION['last_name']; ?></strong>.</p>
+    	<p> <a href="index.php?logout='1'" style="color: red;">Atsijungti</a> </p>
     <?php endif ?>
 </div>
 
@@ -98,8 +141,8 @@
   		</form>
 </div>
 
-  <div class="header">
-	<h2>Mano kontaktai</h2>
+<div class="header">
+	<h2>Mano Kontaktai</h2>
 </div>
 <div class="content">
     <!-- logged in user information -->
@@ -110,6 +153,7 @@
       <th>El. Paštas</th>
       <th>Telefono numeris</th>
       <th>Adresas</th>
+      <th>Veiksmai</th>
     </tr>
     <?php while($row = mysqli_fetch_array($result2)): ?>
     <tr>
@@ -117,11 +161,16 @@
       <td><?php echo $row['email']; ?></td>
       <td><?php echo $row['phone']; ?></td>
       <td><?php echo $row['address']; ?></td>
+      <td>
+	  	<a href="update_contact.php?ContactsID=<?php echo $row['ContactsID']; ?>">Redaguoti</a>
+        <a href="delete_contact.php?ContactsID=<?php echo $row['ContactsID']; ?>" onclick="return confirm('Ar tikrai norite pašalinti šį kontaktą?');">Šalinti</a>
+      </td>
     </tr>
     <?php endwhile; ?>
   </table>
     <?php endif ?>
 	</div>
+
 
 
 

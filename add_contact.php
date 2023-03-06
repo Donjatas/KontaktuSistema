@@ -2,10 +2,10 @@
 session_start(); 
 include 'dbconnect.php';
 
-$sql2 = "SELECT User_ID FROM user WHERE Email='".$_SESSION['email']."'";
+$sql2 = "SELECT UserID FROM user WHERE Email='".$_SESSION['email']."'";
 $result = mysqli_query($db, $sql2);
 $row = mysqli_fetch_assoc($result);
-$UserID = $row['User_ID'];
+$UserID = $row['UserID'];
 
 
 
@@ -22,14 +22,14 @@ if (!$db) {
   
   
   // Insert the new contact into the database
-  $sql = "INSERT INTO contacts (name, email, phone, address, user_id) VALUES ('$name', '$email', '$phone', '$address', '$UserID')";
+  $sql = "INSERT INTO contacts (name, email, phone, address, UserID) VALUES ('$name', '$email', '$phone', '$address', '$UserID')";
   
   if (mysqli_query($db, $sql)) {
-    echo "New contact added successfully!";
   } else {
     echo "Error: " . $sql . "<br>" . mysqli_error($db);
   }
   
   // Close the connection
+  header('Location: index.php');
   mysqli_close($db);
 ?>
